@@ -9,7 +9,7 @@ import lombok.Data;
  * @create 2025/03/08 11:49
  */
 @Data
-@Tag(name = "同一返回类")
+@Schema(name = "同一返回类")
 public class Result<T> {
     /**
      * 代码
