@@ -6,6 +6,10 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///performance?serverTimezone=Asia/Shanghai
-    username: root
-    password: 123456
+    url: jdbc:mysql://47.109.99.254/socre_statistics?serverTimezone=Asia/Shanghai
+    username: fhr
+    password: aliyun
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
