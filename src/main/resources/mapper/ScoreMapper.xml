@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fhr.cuit.mapper.ScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.fhr.cuit.model.entity.Score">
+            <id property="scoreId" column="score_id" jdbcType="BIGINT"/>
+            <result property="studentId" column="student_id" jdbcType="BIGINT"/>
+            <result property="assignmentId" column="assignment_id" jdbcType="BIGINT"/>
+            <result property="score" column="score" jdbcType="DECIMAL"/>
+            <result property="recordTime" column="record_time" jdbcType="TIMESTAMP"/>
+            <result property="uploaderId" column="uploader_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        score_id,student_id,assignment_id,
+        score,record_time,uploader_id
+    </sql>
+</mapper>

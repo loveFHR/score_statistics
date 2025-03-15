@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fhr.cuit.mapper.FinalScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.fhr.cuit.model.entity.FinalScore">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="studentId" column="student_id" jdbcType="BIGINT"/>
+            <result property="courseId" column="course_id" jdbcType="BIGINT"/>
+            <result property="totalScore" column="total_score" jdbcType="DECIMAL"/>
+            <result property="calculateTime" column="calculate_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,student_id,course_id,
+        total_score,calculate_time,status
+    </sql>
+</mapper>
