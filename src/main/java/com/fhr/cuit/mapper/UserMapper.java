@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author FHR
-* @create 2025-03-15 15:38:36
+* @create 2025/03/15 15:38
 */
 public interface UserMapper extends BaseMapper<User> {
 
