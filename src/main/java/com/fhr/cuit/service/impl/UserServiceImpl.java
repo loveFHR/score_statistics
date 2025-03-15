@@ -1,12 +1,15 @@
 package com.fhr.cuit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fhr.cuit.common.BaseContext;
 import com.fhr.cuit.common.JwtUtil;
 import com.fhr.cuit.exception.BusinessException;
 import com.fhr.cuit.model.dto.UserLoginDto;
+import com.fhr.cuit.model.dto.UserResetPassDto;
 import com.fhr.cuit.model.entity.User;
+import com.fhr.cuit.model.vo.Result;
 import com.fhr.cuit.model.vo.UserVo;
 import com.fhr.cuit.service.UserService;
 import com.fhr.cuit.mapper.UserMapper;
@@ -57,6 +60,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
         return userVo;
+    }
+
+    @Override
+    public Result<Void> resetPass(UserResetPassDto resetPassDto) {
+        String oldPassword = resetPassDto.getOldPassword();
+        String newPassword = resetPassDto.getNewPassword();
+        oldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        Long userId = BaseContext.getUserId();
+        User user = userMapper.selectById(userId);
+        if (!user.getPassword().equals(oldPassword)) {
+            throw new BusinessException("密码错误，请重试");
+        }
+        newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+
+        int res = userMapper.updatePass(user.getUserId(),newPassword);
+
+        if (res < 1) {
+            throw new BusinessException("修改失败");
+        }
+        return Result.success(200,"修改成功");
     }
 }
 

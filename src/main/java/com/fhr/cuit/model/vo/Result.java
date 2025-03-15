@@ -38,6 +38,13 @@ public class Result<T> {
         return result;
     }
 
+    public static Result<Void> success(Integer code,String msg) {
+        Result<Void> result = new Result<>();
+        result.code = code;
+        result.msg = msg;
+        return result;
+    }
+
     public static <T> Result<T> error(String msg) {
         Result result = new Result();
         result.msg = msg;
