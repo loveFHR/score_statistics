@@ -45,6 +45,12 @@ public class Course implements Serializable {
     private Long teacherId;
 
     /**
+     * 收课教室名称
+     */
+    @Schema(description = "老师名称")
+    private String teacherName;
+
+    /**
      * 学期（格式：YYYY-YYYY-学期，如2024-2025-1）
      */
     @Schema(description = "学期")
