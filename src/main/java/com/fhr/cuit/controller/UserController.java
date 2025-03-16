@@ -1,5 +1,6 @@
 package com.fhr.cuit.controller;
 
+import com.fhr.cuit.exception.BusinessException;
 import com.fhr.cuit.model.dto.UserLoginDto;
 import com.fhr.cuit.model.dto.UserResetPassDto;
 import com.fhr.cuit.model.entity.User;
@@ -10,6 +11,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author FHR
@@ -58,5 +62,24 @@ public class UserController {
     @PostMapping("resetPass")
     public Result<Void> resetPass(@RequestBody UserResetPassDto resetPassDto){
         return  userService.resetPass(resetPassDto);
+    }
+
+    @PostMapping
+    public Result<Void> register(@RequestParam("file") MultipartFile file) {
+        if(file.isEmpty()){
+            return Result.error("文件不能为空");
+        }
+        if (!file.getContentType().contains("spreadsheetml") && !file.getContentType().contains("xls") && !file.getContentType().contains("xlsx")) {
+            throw new BusinessException("仅支持Excel文件");
+        }
+
+        try {
+            userService.processExcel(file);
+            return Result.success(200,"数据导入成功");
+        } catch (IOException e) {
+            throw new BusinessException("文件读取失败");
+        } catch (Exception e){
+            throw new BusinessException(e.getMessage());
+        }
     }
 }

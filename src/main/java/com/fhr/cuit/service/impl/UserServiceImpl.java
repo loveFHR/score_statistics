@@ -1,10 +1,13 @@
 package com.fhr.cuit.service.impl;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fhr.cuit.common.BaseContext;
 import com.fhr.cuit.common.JwtUtil;
+import com.fhr.cuit.common.SnowflakeUtil;
+import com.fhr.cuit.config.StudentExcelListener;
 import com.fhr.cuit.exception.BusinessException;
 import com.fhr.cuit.model.dto.UserLoginDto;
 import com.fhr.cuit.model.dto.UserResetPassDto;
@@ -16,8 +19,12 @@ import com.fhr.cuit.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,6 +87,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new BusinessException("修改失败");
         }
         return Result.success(200,"修改成功");
+    }
+
+    @Override
+    public void processExcel(MultipartFile file) throws IOException {
+        StudentExcelListener listener = new StudentExcelListener();
+        EasyExcel.read(file.getInputStream(),User.class,listener)
+                .sheet()
+                .doRead();
+        List<User> list = listener.getStudents();
+        for (User user : list) {
+            user.setUserId(SnowflakeUtil.createId());
+            Date date = new Date();
+            user.setCreateTime(date);
+            user.setUpdateTime(date);
+            userMapper.insert(user);
+        }
     }
 }
 

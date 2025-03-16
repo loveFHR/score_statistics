@@ -48,7 +48,7 @@ public class CourseController {
     public Result<Void> save(@RequestBody Course course) {
         Long courseId = course.getCourseId();
         if (courseId == null) {
-            courseService.save(course);
+            courseService.saveCourse(course);
         } else {
             courseService.updateById(course);
         }

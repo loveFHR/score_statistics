@@ -3,6 +3,7 @@ package com.fhr.cuit.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fhr.cuit.common.SnowflakeUtil;
 import com.fhr.cuit.model.dto.CourseDto;
 import com.fhr.cuit.model.entity.Course;
 import com.fhr.cuit.model.vo.PageVo;
@@ -43,6 +44,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         pageVo.setTotal(selectPage.getTotal());
         pageVo.setData(selectPage.getRecords());
         return pageVo;
+    }
+
+    @Override
+    public void saveCourse(Course course) {
+        course.setCourseId(SnowflakeUtil.createId());
+        courseMapper.insert(course);
     }
 }
 

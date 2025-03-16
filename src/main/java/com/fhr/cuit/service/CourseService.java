@@ -12,4 +12,6 @@ import com.fhr.cuit.model.vo.PageVo;
 public interface CourseService extends IService<Course> {
 
     PageVo<Course> getList(CourseDto courseDto);
+
+    void saveCourse(Course course);
 }
