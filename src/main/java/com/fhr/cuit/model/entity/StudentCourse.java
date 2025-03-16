@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -42,6 +44,7 @@ public class StudentCourse implements Serializable {
     /**
      * 选课时间
      */
+    @JsonFormat(pattern = "yyyy-m-dd",timezone = "GMT+8")
     @Schema(description = "选课时间")
     private Date selectTime;
 
@@ -51,6 +54,7 @@ public class StudentCourse implements Serializable {
     @Schema(description = "选课状态")
     private String status;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
