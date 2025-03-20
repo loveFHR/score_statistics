@@ -6,6 +6,7 @@ import com.fhr.cuit.model.vo.PageVo;
 import com.fhr.cuit.model.vo.Result;
 import com.fhr.cuit.service.StudentCourseService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/student/course")
+@Tag(name = "学生选课")
 public class StudentCourseController {
 
     private final StudentCourseService studentCourseService;

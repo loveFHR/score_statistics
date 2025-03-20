@@ -21,5 +21,7 @@ public class FileUploadController {
     }
 
     @PostMapping("upload")
-    public Result<Void> upload(MultipartFile file) {}
+    public Result<Void> upload(MultipartFile file) {
+        return null;
+    }
 }
