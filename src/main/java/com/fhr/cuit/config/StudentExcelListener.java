@@ -25,13 +25,13 @@ public class StudentExcelListener extends AnalysisEventListener<User> {
 
     @Override
     public void invokeHeadMap(Map headMap, AnalysisContext context) {
-        List<String> headers = headMap.values()
-                .stream()
-                .map(String::trim)
-                .collect(Collectors.toList());
-        if (!headers.containsAll(EXPECTED_HEADERS)) {
-            throw new BusinessException("Excel表头必须包含：学号，姓名，性别，院系，邮箱");
-        }
+//        List<String> headers = headMap.values()
+//                .stream()
+//                .map(String::trim)
+//                .collect(Collectors.toList());
+//        if (!headers.containsAll(EXPECTED_HEADERS)) {
+//            throw new BusinessException("Excel表头必须包含：学号，姓名，性别，院系，邮箱");
+//        }
     }
 
     @Override
